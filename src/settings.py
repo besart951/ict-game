@@ -4,26 +4,21 @@ Hier werden Konstanten wie Bildschirmgröße, Farben und Geschwindigkeit definie
 """
 
 # Bildschirm-Einstellungen
-SCREEN_WIDTH: int = 800
-SCREEN_HEIGHT: int = 600
-FPS: int = 60
-TITLE: str = "Mein Super OOP Spiel"
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 600
+FPS = 60
+TITLE = "Pixel Hero: Pro Edition"
 
-# Farben (R, G, B)
-WHITE: tuple[int, int, int] = (255, 255, 255)
-BLACK: tuple[int, int, int] = (0, 0, 0)
-BLUE: tuple[int, int, int] = (50, 150, 255)
-RED: tuple[int, int, int] = (220, 50, 50)
-GREEN: tuple[int, int, int] = (50, 200, 50)
+# Farben
+COLOR_BG = (30, 30, 45)       # Dunkelblau
+COLOR_TEXT = (240, 240, 240)  # Weißlich
+COLOR_ACCENT = (255, 100, 0)   # Orange
 
-# Spieler-Einstellungen
-PLAYER_SIZE: int = 50
-PLAYER_SPEED: int = 5
-PLAYER_START_X: int = SCREEN_WIDTH // 2
-PLAYER_START_Y: int = SCREEN_HEIGHT - 100
+# Physik
+GRAVITY = 0.9
+PLAYER_SPEED = 8
+PLAYER_JUMP_FORCE = -18
 
-# Gegner-Einstellungen
-ENEMY_SIZE: int = 40
-ENEMY_SPEED_MIN: int = 3
-ENEMY_SPEED_MAX: int = 6
-ENEMY_SPAWN_RATE: int = 60  # Alle 60 Frames (ca. 1 Sekunde) ein neuer Gegner
+# Level Layout Einstellungen
+TILE_SIZE = 40
+CHARACTER_SIZE = (48, 48)

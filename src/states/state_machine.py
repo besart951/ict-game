@@ -1,32 +1,29 @@
 """
-State Machine Implementierung.
+Verwaltet den aktuellen Spielzustand (z.B. Menü oder Spiel).
 """
-import pygame
-from src.core.interfaces import IGameState
-
 class StateMachine:
-    """
-    Verwaltet den aktuellen Spielzustand.
-    """
-    def __init__(self) -> None:
-        self.current_state: IGameState | None = None
+    def __init__(self):
+        self.current_state = None
 
-    def change_state(self, new_state: IGameState) -> None:
-        """Wechselt zu einem neuen Zustand."""
-        if self.current_state:
+    def change_state(self, new_state):
+        # Wir rufen exit() beim alten State auf, falls es existiert
+        if self.current_state and hasattr(self.current_state, 'exit'):
             self.current_state.exit()
         
         self.current_state = new_state
-        self.current_state.enter()
+        
+        # Wir rufen enter() beim neuen State auf, falls es existiert
+        if self.current_state and hasattr(self.current_state, 'enter'):
+            self.current_state.enter()
 
-    def update(self, dt: float) -> None:
+    def handle_input(self, event):
+        if self.current_state:
+            self.current_state.handle_input(event)
+
+    def update(self, dt):
         if self.current_state:
             self.current_state.update(dt)
 
-    def draw(self, screen: pygame.Surface) -> None:
+    def draw(self, screen):
         if self.current_state:
             self.current_state.draw(screen)
-            
-    def handle_input(self, event: pygame.event.Event) -> None:
-        if self.current_state:
-            self.current_state.handle_input(event)

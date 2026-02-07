@@ -1,28 +1,15 @@
-# GEMINI.md - Pixel Hero with Pro Assets
+# Pixel Hero: Kids Edition 🚀
 
-## Project Overview
-"Pixel Hero" has been upgraded to use the full **Kenney Pixel Platformer** asset pack. It now features high-quality character animations, tile-based environments, and professional sound effects.
+Dieses Projekt wurde vereinfacht, damit es für Einsteiger (ca. 13 Jahre) leicht zu verstehen ist. Wir nutzen einfaches Object-Oriented Programming (OOP) ohne unnötige Komplexität.
 
-### Features
-- **Pro Graphics:** Character animations (Idle, Walk, Jump), Grass Tiles, Backgrounds, and level decorations (Clouds, Grass tufts).
-- **Pro Sounds:** Uses `.ogg` sound effects for jumping, winning, and UI selection.
-- **Parallax Background:** Multi-layered scrolling for depth.
-- **Improved Game Design:** Better level layout and visual variety.
-- **SOLID Clean Code:** Maintained the refactored architecture while integrating assets.
+## Struktur
+- `src/sprites.py`: Enthält alle Spiel-Objekte (Player, Enemy, Platform). Hier lernst du, wie Klassen funktionieren.
+- `src/settings.py`: Alle wichtigen Zahlen auf einen Blick. Tuning leicht gemacht!
+- `src/states/play_state.py`: Hier wird das Level-Design gemacht.
 
-### Key Asset Paths
-- **Characters:** `src/assets/Sprites/Characters/Default/`
-- **Tiles:** `src/assets/Sprites/Tiles/Default/`
-- **Sounds:** `src/assets/Sounds/`
-- **Backgrounds:** `src/assets/Sprites/Backgrounds/Default/`
+## Was wurde vereinfacht?
+- **SOLID entfernt:** Kein Over-Engineering mehr. Logik ist dort, wo man sie erwartet.
+- **Komponenten aufgelöst:** Physik und Input sind jetzt direkt in der Spieler-Klasse.
+- **Zentralisierte Objekte:** Alles Wichtige ist in wenigen, übersichtlichen Dateien.
 
-### How to Run
-```bash
-python run.py
-```
-
-### Learning Goals for Students
-- **Asset Integration:** How to load and display images and sounds.
-- **Animation Systems:** Using timers to switch between sprite frames.
-- **Parallax Effect:** Simple math to create a 3D feeling in 2D.
-- **Resource Management:** Centralized asset loading in `assets.py`.
+Viel Erfolg beim Lernen!
