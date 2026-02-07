@@ -1,6 +1,8 @@
 [project]
 name = "ict-game"
 version = "0.1.0"
-description = "Add your description here"
+description = "Ein einfaches 2D-Spiel-Grundgerüst mit Pygame"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "pygame>=2.5.2",
+]
