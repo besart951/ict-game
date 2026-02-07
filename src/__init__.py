@@ -1,0 +1,1 @@
+"""Basispaket für das Spiel."""
