@@ -1,40 +1,52 @@
-# Mein super Spiel (Pygame)
+# Mein Super OOP Spiel
 
-Dieses Projekt ist ein einfaches 2D-Spiel-Grundgerüst mit **Python + Pygame**,
-extra für Einsteiger:innen ab ca. 13 Jahren.
+Ein einfaches Spiel in Python, programmiert mit Objekt-Orientierter Programmierung (OOP).
+Ideal für Einsteiger! 🎮
 
-## Projektstruktur
+## Projekt-Struktur
 
 ```plaintext
-mein_super_spiel/
+mein_spiel/
 │
-├── assets/                 # Hier kommen später Bilder und Sounds rein
-│   ├── images/
-│   └── sounds/
+├── run.py              # <--- Hier starten! (python run.py)
+├── README.md           # Anleitung
+├── pyproject.toml      # Einstellungen für Python/uv
 │
-├── src/                    # Der Quellcode (Source)
-│   ├── __init__.py         # Macht den Ordner als Modul erkennbar
-│   ├── main.py             # Startet das Spiel (Game Loop)
-│   ├── sprites.py          # Enthält die Klassen (Player, Enemy)
-│   └── settings.py         # Farben, Fenstergröße, Speed
-│
-└── README.md               # Eine kurze Anleitung für die Kids
+└── src/                # Der Quellcode
+    ├── game.py         # Die Haupt-Klasse 'Game' (Spiel-Logik)
+    ├── main.py         # Start-Funktion
+    ├── settings.py     # Einstellungen (Farben, Größe)
+    └── sprites.py      # Spieler und Gegner (Klassen)
 ```
 
-## Starten mit `uv`
+## Installation
 
-1. Abhängigkeiten installieren:
-   ```bash
-   uv add pygame
-   ```
+Falls du `uv` benutzt:
+```bash
+uv sync
+```
 
-2. Spiel starten:
-   ```bash
-   uv run python -m src.main
-   ```
+Oder klassisch mit pip:
+```bash
+pip install pygame
+```
+
+## Starten
+
+Ganz einfach im Terminal:
+
+```bash
+python run.py
+```
+
+Oder mit uv:
+
+```bash
+uv run python run.py
+```
 
 ## Steuerung
+- **Pfeiltasten Links/Rechts**: Bewegen
+- **Ziel**: Weiche den roten Blöcken aus!
 
-- Pfeiltasten: Spieler bewegen
-
-Viel Spaß beim Weiterbauen! 🎮
+Viel Spaß beim Coden! 🚀

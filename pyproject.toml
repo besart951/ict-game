@@ -2,7 +2,7 @@
 name = "ict-game"
 version = "0.1.0"
 description = "Ein einfaches 2D-Spiel-Grundgerüst mit Pygame"
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = [
     "pygame>=2.5.2",
 ]

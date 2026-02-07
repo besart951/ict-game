@@ -1,88 +1,70 @@
-"""Sprite-Klassen für das Spiel."""
-
-from __future__ import annotations
-
+"""
+Spiel-Objekte (Sprites).
+Hier definieren wir die Klassen für den Spieler und die Gegner.
+"""
 import random
 import pygame
-
-from . import settings
-
+from src import settings  # Import aus dem src-Paket
 
 class Player(pygame.sprite.Sprite):
-    """Der Spieler-Sprite, steuerbar mit den Pfeiltasten."""
-
-    def __init__(self, start_pos: tuple[int, int]) -> None:
-        """Initialisiert den Spieler.
-
-        Wichtige Punkte:
-        - Wir erstellen ein einfaches farbiges Surface als Platzhalter-Grafik.
-        - Mit `get_rect()` erzeugen wir ein Rechteck (rect), das Position
-          und Kollisionen beschreibt.
-        - Das rect ist die wichtigste Anlaufstelle für Positionen im Spiel.
-        """
+    """
+    Der Spieler-Charakter.
+    Kann mit den Pfeiltasten nach links und rechts bewegt werden.
+    """
+    def __init__(self) -> None:
         super().__init__()
-
-        # Platzhalter-Grafik: ein blaues Quadrat
+        # 1. Aussehen erstellen (Ein blaues Quadrat)
         self.image = pygame.Surface((settings.PLAYER_SIZE, settings.PLAYER_SIZE))
         self.image.fill(settings.BLUE)
+        
+        # 2. Position festlegen (Rechteck / Hitbox)
+        self.rect = self.image.get_rect()
+        self.rect.centerx = settings.PLAYER_START_X
+        self.rect.bottom = settings.PLAYER_START_Y
+        
+        # Geschwindigkeit
+        self.speed: int = settings.PLAYER_SPEED
 
-        # Das rect speichert Position und Größe. Startposition per center setzen.
-        self.rect = self.image.get_rect(center=start_pos)
-
-        # Bewegungsgeschwindigkeit in Pixel pro Update-Schritt
-        self.speed = settings.PLAYER_SPEED
-
-    def update(self, screen_rect: pygame.Rect) -> None:
-        """Aktualisiert die Spielerposition pro Frame.
-
-        - Wir lesen die Tastatur mit `pygame.key.get_pressed()`.
-        - Die Bewegung wird über das rect gesteuert (rect.x / rect.y).
-        - Danach halten wir den Spieler im Bildschirmrahmen.
-        """
+    def update(self) -> None:
+        """Wird jeden Frame aufgerufen, um die Position zu aktualisieren."""
         keys = pygame.key.get_pressed()
-
+        
+        # Bewegung nach links
         if keys[pygame.K_LEFT]:
             self.rect.x -= self.speed
+            
+        # Bewegung nach rechts
         if keys[pygame.K_RIGHT]:
             self.rect.x += self.speed
-        if keys[pygame.K_UP]:
-            self.rect.y -= self.speed
-        if keys[pygame.K_DOWN]:
-            self.rect.y += self.speed
 
-        # Spieler innerhalb des sichtbaren Bereichs halten
-        self.rect.clamp_ip(screen_rect)
-
+        # Bildschirm-Grenzen prüfen (damit der Spieler nicht rausläuft)
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > settings.SCREEN_WIDTH:
+            self.rect.right = settings.SCREEN_WIDTH
 
 class Enemy(pygame.sprite.Sprite):
-    """Ein einfacher Gegner, der von oben nach unten fliegt."""
-
-    def __init__(self, start_pos: tuple[int, int]) -> None:
-        """Initialisiert den Gegner.
-
-        - Auch hier nutzen wir ein farbiges Surface als Platzhalter.
-        - Das rect bestimmt Position und Größe.
-        """
+    """
+    Ein Gegner, der von oben nach unten fällt.
+    """
+    def __init__(self) -> None:
         super().__init__()
-
+        # Rotes Quadrat als Gegner
         self.image = pygame.Surface((settings.ENEMY_SIZE, settings.ENEMY_SIZE))
         self.image.fill(settings.RED)
+        
+        # Start-Position: Zufällig oben
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0, settings.SCREEN_WIDTH - settings.ENEMY_SIZE)
+        self.rect.y = -settings.ENEMY_SIZE  # Startet außerhalb des Bildschirms (oben)
+        
+        # Zufällige Geschwindigkeit
+        self.speed: int = random.randint(settings.ENEMY_SPEED_MIN, settings.ENEMY_SPEED_MAX)
 
-        self.rect = self.image.get_rect(center=start_pos)
-        self.speed = settings.ENEMY_SPEED
-
-    def update(self, screen_rect: pygame.Rect) -> None:
-        """Bewegt den Gegner nach unten.
-
-        - Wenn der Gegner den unteren Bildschirmrand verlässt,
-          setzen wir ihn wieder nach oben.
-        - Die neue X-Position wird zufällig gewählt.
-        """
+    def update(self) -> None:
+        """Bewegt den Gegner nach unten."""
         self.rect.y += self.speed
-
-        if self.rect.top > screen_rect.bottom:
-            new_x = random.randint(
-                screen_rect.left + settings.ENEMY_SPAWN_MARGIN,
-                screen_rect.right - settings.ENEMY_SPAWN_MARGIN,
-            )
-            self.rect.midbottom = (new_x, screen_rect.top)
+        
+        # Wenn der Gegner unten rausfliegt, löschen wir ihn (um Speicher zu sparen)
+        if self.rect.top > settings.SCREEN_HEIGHT:
+            self.kill()  # Entfernt das Sprite aus allen Gruppen
